@@ -10,9 +10,9 @@
     </parent>
     <groupId>com.freesia</groupId>
     <artifactId>MetaTradeGateway</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.0-RELEASE</version>
     <name>MetaTradeGateway</name>
-    <description>Demo project for Spring Boot</description>
+    <description>About MetaTrade Gateway for Blockchain Service using WebSocket protocol</description>
     <properties>
         <java.version>17</java.version>
     </properties>
