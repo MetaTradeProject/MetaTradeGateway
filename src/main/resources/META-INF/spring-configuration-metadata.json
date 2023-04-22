@@ -1,0 +1,52 @@
+{
+  "groups": [
+    {
+      "name": "metatrade-gateway",
+      "type": "com.freesia.metatradegateway.MetaTradeGatewayProperties",
+      "sourceType": "com.freesia.metatradegateway.MetaTradeGatewayProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "metatrade-gateway.admin-address",
+      "type": "java.lang.String",
+      "sourceType": "com.freesia.metatradegateway.MetaTradeGatewayProperties"
+    },
+    {
+      "name": "metatrade-gateway.broadcast-address",
+      "type": "java.lang.String",
+      "sourceType": "com.freesia.metatradegateway.MetaTradeGatewayProperties"
+    },
+    {
+      "name": "metatrade-gateway.fixed-mine-reward",
+      "type": "java.lang.Double",
+      "sourceType": "com.freesia.metatradegateway.MetaTradeGatewayProperties"
+    },
+    {
+      "name": "metatrade-gateway.genesis-proof-level",
+      "type": "java.lang.Integer",
+      "sourceType": "com.freesia.metatradegateway.MetaTradeGatewayProperties"
+    },
+    {
+      "name": "metatrade-gateway.init-coins",
+      "type": "java.lang.Double",
+      "sourceType": "com.freesia.metatradegateway.MetaTradeGatewayProperties"
+    },
+    {
+      "name": "metatrade-gateway.init-hash",
+      "type": "java.lang.String",
+      "sourceType": "com.freesia.metatradegateway.MetaTradeGatewayProperties"
+    },
+    {
+      "name": "metatrade-gateway.proof-level",
+      "type": "java.lang.Integer",
+      "sourceType": "com.freesia.metatradegateway.MetaTradeGatewayProperties"
+    },
+    {
+      "name": "metatrade-gateway.spawn-second",
+      "type": "java.lang.Long",
+      "sourceType": "com.freesia.metatradegateway.MetaTradeGatewayProperties"
+    }
+  ],
+  "hints": []
+}
