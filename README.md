@@ -34,7 +34,7 @@ MetaTrade将所有交易信息集合分为三个层次：
 - `proof`：本区块POW时的随机数结果
 - `blockBody`：上一个区块的`Rewarded`交易和打包时的交易信息集合
 
-[Block的Hash值如何确定？](# POW证明)
+[Block的Hash值如何确定？](#POW证明)
 
 ##### 类区块 RawBlock
 类区块仅仅存储打包时的交易记录集合和打包时的`proofLevel`
@@ -61,9 +61,11 @@ MetaTrade将所有交易信息集合分为三个层次：
 - 类区块的`proofLevel`
 
 当节点计算出这三者的值后，可以进行POW工作，节点需要通过计算获得一个数字，使得
+
 $$
 \mathrm{HASH}(Block)\ =\ \mathrm{SHA256}(\mathrm{SHA256}(prevHash \cdot merkleHash \cdot proofLevel \cdot proof))\ =\ 0000\cdots
 $$
+
 $a \cdot b$为字符串的连接符号，结果的前导0数量应与`proofLevel`相同
 
 当节点计算出这个`proof`，可以向网关提交消息，网关会进行转发（略去证明节点的地址），若该节点的证明获得网络中半数及以上的节点的同意时，该区块会被上链
