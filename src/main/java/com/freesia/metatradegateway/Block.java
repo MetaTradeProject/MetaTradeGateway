@@ -1,5 +1,7 @@
 package com.freesia.metatradegateway;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.List;
@@ -32,6 +34,7 @@ public class Block {
         return proof;
     }
 
+    @JsonIgnore
     public double getBlockCommission() {
         double ret = 0;
         for(Trade trade: blockBody){
@@ -72,6 +75,7 @@ public class Block {
         this.proof = proof;
     }
 
+    @JsonIgnore
     public String getMineData(){
         calMerkleHash();
         return prevHash + merkleHash + proofLevel;

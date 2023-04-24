@@ -18,5 +18,6 @@ public class WebSocketDisconnectListener implements ApplicationListener<SessionD
     @Override
     public void onApplicationEvent(SessionDisconnectEvent event) {
         counter.decrement();
+        System.out.println("disconnected");
     }
 }

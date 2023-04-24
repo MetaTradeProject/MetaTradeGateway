@@ -18,6 +18,7 @@ public class WebSocketConnectListener implements ApplicationListener<SessionConn
     @Override
     public void onApplicationEvent(SessionConnectEvent event) {
         counter.increment();
+        System.out.println("connected");
     }
 }
 

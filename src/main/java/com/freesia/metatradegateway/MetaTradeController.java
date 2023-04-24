@@ -11,7 +11,6 @@ import org.springframework.messaging.simp.annotation.SubscribeMapping;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.SchedulingConfigurer;
 import org.springframework.scheduling.config.ScheduledTaskRegistrar;
-import org.springframework.scheduling.support.CronTrigger;
 import org.springframework.scheduling.support.PeriodicTrigger;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -72,8 +71,8 @@ public class MetaTradeController implements SchedulingConfigurer {
 
     @MessageMapping("/agree")
     public void handleNewAgreement(AgreeMessage message){
-        log.info(String.format("Receiving Agree Msg from %s: %d", message.address, message.proof));
-        if(blockChainService.addAgree(message.getProof(), connCounter.onlineUsers())){
+        log.info(String.format("Receiving Agree Msg from %s: %d", message.address(), message.proof()));
+        if(blockChainService.addAgree(message.proof(), connCounter.onlineUsers())){
             //semi-sync
             log.info("Broadcasting semi-sync message...");
             simpMessagingTemplate.convertAndSend("/meta-trade/subscribe/semi-sync",
