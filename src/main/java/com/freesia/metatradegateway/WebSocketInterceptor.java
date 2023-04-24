@@ -10,4 +10,6 @@ public class WebSocketInterceptor extends HttpSessionHandshakeInterceptor {
     public void afterHandshake(ServerHttpRequest request, ServerHttpResponse response, WebSocketHandler wsHandler, Exception ex) {
         super.afterHandshake(request, response, wsHandler, ex);
     }
+
+
 }

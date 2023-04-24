@@ -15,6 +15,7 @@ public class WebSocketStompConfig implements WebSocketMessageBrokerConfigurer {
     public void registerStompEndpoints(StompEndpointRegistry registry) {
         registry.addEndpoint("/meta-trade/stomp")
                 .addInterceptors(new WebSocketInterceptor())
+                .setHandshakeHandler(new WebSocketHandShaker())
                 .setAllowedOriginPatterns("*");
     }
 

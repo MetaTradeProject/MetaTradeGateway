@@ -401,7 +401,7 @@ metatrade-gateway.spawnSecond=600
 当网络内半数以上节点同意该POW后，新的区块上链，所有节点都会收到新的同步信息
 返回`SemiSyncMessage`
 
-##### 同步订阅`/meta-trade/user/sync`
+##### 同步订阅`/meta-trade/user/meta-trade/subscribe/sync`
 节点主动发送同步消息后，将会在这个订阅中收到同步的消息
 返回`SyncMessage`
 
@@ -412,4 +412,5 @@ metatrade-gateway.spawnSecond=600
 节点需要广播自己的POW时，向网关发送`ProofMessage`消息
 ##### 同意POW消息`/meta-trade/post/agree`
 节点如果同意之前收到的POW消息时，向网关发送`AgreeMessage`消息
-
+##### 请求同步 `/meta-trade/post/sync`
+节点需要同步区块网络信息时，向网关发送空消息

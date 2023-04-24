@@ -46,7 +46,7 @@ public class MetaTradeController implements SchedulingConfigurer {
     }
 
     @MessageMapping("/sync")
-    @SendToUser(value = "/sync", broadcast = false)
+    @SendToUser(value = "/meta-trade/subscribe/sync", broadcast = false)
     public SyncMessage handleSync(Principal principal){
         log.info(String.format("Send Sync Msg to %s", principal.getName()));
         return new SyncMessage(blockChainService.getChain(), blockChainService.getRawBlockList(), blockChainService.getTradeList());

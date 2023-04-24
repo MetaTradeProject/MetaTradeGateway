@@ -1,10 +1,12 @@
 package com.freesia.metatradegateway;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.messaging.SessionDisconnectEvent;
 
+@Slf4j
 @Component
 public class WebSocketDisconnectListener implements ApplicationListener<SessionDisconnectEvent> {
 
@@ -18,6 +20,6 @@ public class WebSocketDisconnectListener implements ApplicationListener<SessionD
     @Override
     public void onApplicationEvent(SessionDisconnectEvent event) {
         counter.decrement();
-        System.out.println("disconnected");
+        log.info(String.format("DisconnectListener: Current Count: %d", counter.onlineUsers()));
     }
 }
