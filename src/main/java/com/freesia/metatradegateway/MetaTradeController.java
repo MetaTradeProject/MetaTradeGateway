@@ -4,9 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
-import org.springframework.messaging.simp.annotation.SendToUser;
 import org.springframework.messaging.simp.annotation.SubscribeMapping;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.SchedulingConfigurer;
@@ -22,7 +20,6 @@ import java.time.Duration;
 @RestController
 @EnableScheduling
 public class MetaTradeController implements SchedulingConfigurer {
-
     private final SimpMessagingTemplate simpMessagingTemplate;
 
     private final WebSocketConnCounter connCounter;
@@ -42,31 +39,33 @@ public class MetaTradeController implements SchedulingConfigurer {
 
     @SubscribeMapping("/init")
     public SyncMessage handleInit(){
-        return new SyncMessage(blockChainService.getChain(), blockChainService.getRawBlockList(), blockChainService.getTradeList());
+        var msg = new SyncMessage(blockChainService.getChain(), blockChainService.getRawBlockList(), blockChainService.getTradeList());
+
+        return msg;
     }
 
     @MessageMapping("/sync")
-    @SendToUser(value = "/meta-trade/subscribe/sync", broadcast = false)
-    public SyncMessage handleSync(Principal principal){
+    public void handleSync(Principal principal){
+        log.info(String.valueOf(System.currentTimeMillis()));
         log.info(String.format("Send Sync Msg to %s", principal.getName()));
-        return new SyncMessage(blockChainService.getChain(), blockChainService.getRawBlockList(), blockChainService.getTradeList());
+        var msg = new SyncMessage(blockChainService.getChain(), blockChainService.getRawBlockList(), blockChainService.getTradeList());
+        simpMessagingTemplate.convertAndSendToUser(principal.getName(), "/meta-trade/subscribe/sync", msg);
     }
 
     @MessageMapping("/trade")
-    @SendTo("/meta-trade/subscribe/trade")
-    public Trade handleNewTrade(Trade trade){
+    public void handleNewTrade(Trade trade){
+        log.info(String.valueOf(System.currentTimeMillis()));
         log.info(String.format("Transferring trade: %s --> %s %f: %f",
                 trade.senderAddress(), trade.receiverAddress(), trade.amount(), trade.commission()));
         blockChainService.insertTrade(trade);
-        return trade;
+        simpMessagingTemplate.convertAndSend("/meta-trade/subscribe/trade", trade);
     }
 
     @MessageMapping("/proof")
-    @SendTo("/meta-trade/subscribe/judge")
-    public JudgeMessage handleNewProof(ProofMessage message){
+    public void handleNewProof(ProofMessage message){
         log.info(String.format("Transferring proof: %s %d", message.address(), message.getProof()));
         blockChainService.addProof(message);
-        return new JudgeMessage(message.getProof());
+        simpMessagingTemplate.convertAndSend("/meta-trade/subscribe/judge", new JudgeMessage(message.getProof()));
     }
 
     @MessageMapping("/agree")
