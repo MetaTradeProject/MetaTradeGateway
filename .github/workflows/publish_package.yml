@@ -23,5 +23,4 @@ jobs:
         automatic_release_tag: "${{ env.RELEASE_VERSION }}"
         prerelease: false
         title: "Release ${{ env.RELEASE_VERSION }}"
-        files: |
-          staging/*.jar
+        files: staging/*.jar
