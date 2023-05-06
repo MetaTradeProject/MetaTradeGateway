@@ -11,6 +11,8 @@ jobs:
     steps:
     - name: checkout repo
       uses: actions/checkout@v2.3.4
+    - name: upgrade permission
+      run: chmod 777 ./mvnw
     - name: Maven Package
       run: ./mvnw clean package
     - run: mkdir staging && cp target/*.jar staging
