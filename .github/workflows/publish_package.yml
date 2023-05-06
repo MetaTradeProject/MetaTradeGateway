@@ -12,7 +12,7 @@ jobs:
     - name: checkout repo
       uses: actions/checkout@v2.3.4
     - name: Maven Package
-      run: mvnw clean package
+      run: ./mvnw clean package
     - run: mkdir staging && cp target/*.jar staging
     - name: Set Release version env variable
       run: echo "RELEASE_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_ENV  
