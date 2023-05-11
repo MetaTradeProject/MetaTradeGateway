@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.freesia</groupId>
     <artifactId>MetaTradeGateway</artifactId>
-    <version>1.0.0-RELEASE</version>
+    <version>1.0.1-RELEASE</version>
     <name>MetaTradeGateway</name>
     <description>About MetaTrade Gateway for Blockchain Service using WebSocket protocol</description>
     <properties>
@@ -41,6 +41,12 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.bouncycastle</groupId>
+            <artifactId>bcprov-jdk15on</artifactId>
+            <version>1.70</version>
         </dependency>
     </dependencies>
 
