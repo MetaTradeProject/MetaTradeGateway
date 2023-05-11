@@ -2,9 +2,16 @@ package com.freesia.metatradegateway;
 
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
+import java.security.GeneralSecurityException;
+import java.security.KeyFactory;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.security.PrivateKey;
 import java.security.Security;
+import java.security.Signature;
+import java.security.SignatureException;
+import java.security.spec.ECPrivateKeySpec;
+import java.security.spec.EllipticCurve;
 import java.util.LinkedList;
 
 import org.bouncycastle.asn1.x9.X9IntegerConverter;
@@ -12,10 +19,12 @@ import org.bouncycastle.crypto.params.ECDomainParameters;
 import org.bouncycastle.crypto.params.ECPrivateKeyParameters;
 import org.bouncycastle.crypto.params.ParametersWithRandom;
 import org.bouncycastle.crypto.signers.ECDSASigner;
+import org.bouncycastle.jcajce.provider.asymmetric.util.EC5Util;
 import org.bouncycastle.jce.ECNamedCurveTable;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.bouncycastle.jce.spec.ECNamedCurveParameterSpec;
 import org.bouncycastle.math.ec.ECAlgorithms;
+import org.bouncycastle.math.ec.ECCurve;
 import org.bouncycastle.math.ec.ECPoint;
 
 public class CryptoUtils {
@@ -56,25 +65,31 @@ public class CryptoUtils {
         return stringBuffer.toString();
     }
 
+    public static PrivateKey loadPrivateKey(byte[] data) throws GeneralSecurityException {
+        KeyFactory factory = KeyFactory.getInstance("ECDSA", "SC");
+        ECNamedCurveParameterSpec spec = ECNamedCurveTable.getParameterSpec("secp256k1");
+        ECCurve eccCurve = spec.getCurve();
+        EllipticCurve ellipticCurve = EC5Util.convertCurve(eccCurve, spec.getSeed());
+        java.security.spec.ECParameterSpec params = EC5Util.convertSpec(ellipticCurve, spec);
+        ECPrivateKeySpec keySpec = new ECPrivateKeySpec(new BigInteger(1, data), params);
+        return factory.generatePrivate(keySpec);
+    }
+
     public static String sign(String msg, String privateKey){
+        try {
+            Signature signature;
+            signature = Signature.getInstance("SHA256withECDSA");
+            signature.initSign(loadPrivateKey(hex2Byte(privateKey)));
+            signature.update(hex2Byte(msg));
+            byte[] s = signature.sign();
+        } catch (GeneralSecurityException e) {
+            e.printStackTrace();
+        }
+        
+
         byte[] signData = signTransaction(hex2Byte(msg), hex2Byte(privateKey));
         String str = byte2Hex(signData);
         return str;
-    }
-
-    private static byte[] derSign(byte[] rb, byte[] sb) throws Exception {
-        int off = (2 + 2) + rb.length;
-        int tot = off + (2 - 2) + sb.length;
-        byte[] der = new byte[tot + 2];
-        der[0] = 0x30;
-        der[1] = (byte) (tot & 0xff);
-        der[2 + 0] = 0x02;
-        der[2 + 1] = (byte) (rb.length & 0xff);
-        System.arraycopy(rb, 0, der, 2 + 2, rb.length);
-        der[off + 0] = 0x02;
-        der[off + 1] = (byte) (sb.length & 0xff);
-        System.arraycopy(sb, 0, der, off + 2, sb.length);
-        return der;
     }
 
     private static byte[] signTransaction(byte[] data, byte[] privateKey) {
