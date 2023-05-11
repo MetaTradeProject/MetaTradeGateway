@@ -19,14 +19,18 @@ MetaTrade是记录交易数据的一种服务，基本的单元是`Trade`：
 ```json
 {
 	"senderAddress": "0000000000000000",
-	"receiverAddress": "FFFFFFFFFFFFFFFF",
+	"receiverAddress": "*",
 	"amount": 10.00,
 	"commission": 0.01,
-	"timestamp": 1682177056
+	"timestamp": 1682177056,
+    "signature": "*",
+    "senderPublicKey": "*",
+    "description": "des"
 }
 ```
-在网关服务中，地址是表示交易角色的唯一方式，**Todo: 地址是如何产生的？**
-`commission`手续费是用于提供给POW证明者的奖励，由`sender`提供
+在网关服务中，地址是表示交易角色的唯一方式，[地址是如何产生的?](https://github.com/Freesia810/MetaTradeGateway.git)
+
+`commission`即手续费，是用于提供给POW证明者的奖励，由`sender`提供
 
 #### 交易信息集合结构
 交易信息集合包括区块(`Block`)、类区块（`rawBlock`）和当前交易池
@@ -95,6 +99,8 @@ $a \cdot b$为字符串的连接符号，结果的前导0数量应与`proofLevel
 #### 读取配置
 ```
 metatrade-gateway.admin-address=0000000000000000
+metatrade-gateway.admin-private-key=0000000000000000
+metatrade-gateway.admin-public-key=0000000000000000
 metatrade-gateway.broadcastAddress=FFFFFFFFFFFFFFFF
 metatrade-gateway.fixedMineReward=5.00
 metatrade-gateway.initCoins=100
@@ -124,7 +130,10 @@ metatrade-gateway.spawnSecond=600
 	"receiverAddress": "FFFFFFFFFFFFFFFF",
 	"amount": 10.00,
 	"commission": 0.01,
-	"timestamp": 1682177056
+	"timestamp": 1682177056,
+    "signature": "*",
+    "senderPublicKey": "*",
+    "description": "des"
 }
 ```
 #### SyncMessage

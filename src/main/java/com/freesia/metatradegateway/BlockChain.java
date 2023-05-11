@@ -20,8 +20,10 @@ public class BlockChain implements BlockChainService{
 
     private final MetaTradeGatewayProperties properties;
 
-    private String adminAddress = "0000000000000000";
-    private String broadcastAddress = "FFFFFFFFFFFFFFFF";
+    private String adminPrivateKey = "0";
+    private String adminPublicKey = "0";
+    private String adminAddress = "0";
+    private String broadcastAddress = "*";
     private double initCoins = 100;
     private double fixedMineReward = 5.00;
     private String initHash = "1";
@@ -51,8 +53,8 @@ public class BlockChain implements BlockChainService{
 
     private Block CreateGenesisBlock(){
         Block block = new Block(initHash, genesisProofLevel);
-        block.getBlockBody().add(
-                new Trade(adminAddress, broadcastAddress, initCoins, 0, System.currentTimeMillis()));
+        block.getBlockBody().add(new Trade(adminAddress, broadcastAddress, initCoins, 0, System.currentTimeMillis(), 
+                adminPrivateKey, adminPublicKey, "INIT"));
         return block;
     }
 
@@ -156,9 +158,9 @@ public class BlockChain implements BlockChainService{
 
     private void RewardMiner(Block block, String address){
         Trade trade = new Trade(adminAddress, address,
-                block.getBlockCommission() + fixedMineReward, 0, System.currentTimeMillis());
+                block.getBlockCommission() + fixedMineReward, 0, System.currentTimeMillis(), adminPrivateKey, adminPublicKey, "REWARD");
         rawBlockDeque.getFirst().blockBody().add(0, trade);
-        log.info(String.format("BlockChain Rewarding Miner: %s %f", trade.receiverAddress(), trade.amount()));
+        log.info(String.format("BlockChain Rewarding Miner: %s %f", trade.getReceiverAddress(), trade.getAmount()));
     }
 
 

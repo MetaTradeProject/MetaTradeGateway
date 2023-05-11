@@ -56,7 +56,7 @@ public class MetaTradeController implements SchedulingConfigurer {
     public void handleNewTrade(Trade trade){
         log.info(String.valueOf(System.currentTimeMillis()));
         log.info(String.format("Transferring trade: %s --> %s %f: %f",
-                trade.senderAddress(), trade.receiverAddress(), trade.amount(), trade.commission()));
+                trade.getSenderAddress(), trade.getReceiverAddress(), trade.getAmount(), trade.getCommission()));
         blockChainService.insertTrade(trade);
         simpMessagingTemplate.convertAndSend("/meta-trade/subscribe/trade", trade);
     }

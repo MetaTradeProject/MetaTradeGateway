@@ -8,6 +8,8 @@ import org.springframework.context.annotation.PropertySource;
 @PropertySource(value = {"classpath:metatrade-gateway.properties","file:./config/metatrade-gateway.properties"},ignoreResourceNotFound = true)
 @ConfigurationProperties(prefix = "metatrade-gateway")
 public class MetaTradeGatewayProperties {
+    private String adminPrivateKey;
+    private String adminPublicKey;
     private String adminAddress;
     private String broadcastAddress;
     private double initCoins;
@@ -16,6 +18,22 @@ public class MetaTradeGatewayProperties {
     private int proofLevel;
     private int genesisProofLevel;
     private long spawnSecond;
+
+    public String getAdminPrivateKey() {
+        return adminPrivateKey;
+    }
+
+    public void setAdminPrivateKey(String adminPrivateKey) {
+        this.adminPrivateKey = adminPrivateKey;
+    }
+
+    public String getAdminPublicKey() {
+        return adminPublicKey;
+    }
+
+    public void setAdminPublicKey(String adminPublicKey) {
+        this.adminPublicKey = adminPublicKey;
+    }
 
     public String getAdminAddress() {
         return adminAddress;

@@ -32,4 +32,8 @@ public class CryptoUtils {
         }
         return stringBuffer.toString();
     }
+
+    public static String sign(String msg, String privateKey){
+        return "";
+    }
 }

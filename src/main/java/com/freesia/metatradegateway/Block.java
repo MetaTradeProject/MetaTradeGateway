@@ -38,7 +38,7 @@ public class Block {
     public double getBlockCommission() {
         double ret = 0;
         for(Trade trade: blockBody){
-            ret += trade.commission();
+            ret += trade.getCommission();
         }
         return ret;
     }
