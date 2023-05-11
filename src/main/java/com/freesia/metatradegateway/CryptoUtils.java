@@ -9,12 +9,8 @@ import java.security.NoSuchAlgorithmException;
 import java.security.PrivateKey;
 import java.security.Security;
 import java.security.Signature;
-import java.security.SignatureException;
 import java.security.spec.ECPrivateKeySpec;
 import java.security.spec.EllipticCurve;
-import java.util.LinkedList;
-
-import org.bouncycastle.asn1.x9.X9IntegerConverter;
 import org.bouncycastle.crypto.params.ECDomainParameters;
 import org.bouncycastle.crypto.params.ECPrivateKeyParameters;
 import org.bouncycastle.crypto.params.ParametersWithRandom;
@@ -23,9 +19,7 @@ import org.bouncycastle.jcajce.provider.asymmetric.util.EC5Util;
 import org.bouncycastle.jce.ECNamedCurveTable;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.bouncycastle.jce.spec.ECNamedCurveParameterSpec;
-import org.bouncycastle.math.ec.ECAlgorithms;
 import org.bouncycastle.math.ec.ECCurve;
-import org.bouncycastle.math.ec.ECPoint;
 
 public class CryptoUtils {
     public static String getSHA256(String str) {
@@ -82,6 +76,8 @@ public class CryptoUtils {
             signature.initSign(loadPrivateKey(hex2Byte(privateKey)));
             signature.update(hex2Byte(msg));
             byte[] s = signature.sign();
+
+            int i = 0;
         } catch (GeneralSecurityException e) {
             e.printStackTrace();
         }
@@ -119,7 +115,7 @@ public class CryptoUtils {
                 s = tmp;
             }
             
-            return derSign(r, s);   
+            return r;  
         } catch (Exception e) {
             e.printStackTrace();
             return null;
