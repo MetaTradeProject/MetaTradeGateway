@@ -1,4 +1,4 @@
-package com.freesia.metatradegateway;
+package com.freesia.metatradegateway.websocket;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;

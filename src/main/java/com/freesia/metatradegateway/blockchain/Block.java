@@ -1,6 +1,7 @@
-package com.freesia.metatradegateway;
+package com.freesia.metatradegateway.blockchain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.freesia.metatradegateway.CryptoUtils;
 
 import java.util.ArrayDeque;
 import java.util.Deque;

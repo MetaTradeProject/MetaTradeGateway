@@ -1,8 +1,12 @@
-package com.freesia.metatradegateway;
+package com.freesia.metatradegateway.blockchain;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.freesia.metatradegateway.CryptoUtils;
+import com.freesia.metatradegateway.MetaTradeGatewayProperties;
+import com.freesia.metatradegateway.message.ProofMessage;
 
 import java.util.Deque;
 import java.util.List;

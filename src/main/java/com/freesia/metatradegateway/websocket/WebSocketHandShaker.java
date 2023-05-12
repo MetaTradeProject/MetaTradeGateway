@@ -1,4 +1,4 @@
-package com.freesia.metatradegateway;
+package com.freesia.metatradegateway.websocket;
 
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.web.socket.WebSocketHandler;

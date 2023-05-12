@@ -1,6 +1,8 @@
-package com.freesia.metatradegateway;
+package com.freesia.metatradegateway.blockchain;
 
 import org.springframework.stereotype.Service;
+
+import com.freesia.metatradegateway.message.ProofMessage;
 
 import java.util.List;
 
