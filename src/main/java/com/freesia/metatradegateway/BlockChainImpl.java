@@ -15,7 +15,7 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 @Service
 @Slf4j
-public class BlockChain implements BlockChainService{
+public class BlockChainImpl implements BlockChainService{
     private final ReentrantReadWriteLock lock = new ReentrantReadWriteLock();
 
     private final MetaTradeGatewayProperties properties;
@@ -47,7 +47,7 @@ public class BlockChain implements BlockChainService{
     private final AtomicBoolean isFoundFlag = new AtomicBoolean(false);
 
     @Autowired
-    public BlockChain(MetaTradeGatewayProperties properties){
+    public BlockChainImpl(MetaTradeGatewayProperties properties){
         this.properties = properties;
     }
 
