@@ -20,6 +20,7 @@ import com.freesia.metatradegateway.message.ProofMessage;
 import com.freesia.metatradegateway.message.SemiSyncMessage;
 import com.freesia.metatradegateway.message.SpawnMessage;
 import com.freesia.metatradegateway.message.SyncMessage;
+import com.freesia.metatradegateway.rpc.FakeTradeServer;
 import com.freesia.metatradegateway.websocket.WebSocketConnCounter;
 
 import java.security.Principal;
@@ -36,11 +37,26 @@ public class MetaTradeController implements SchedulingConfigurer {
 
     private final BlockChainService blockChainService;
 
+    private final MetaTradeGatewayProperties properties;
+
     @Autowired
-    public MetaTradeController(WebSocketConnCounter connCounter, SimpMessagingTemplate simpMessagingTemplate, BlockChainService blockChainService){
+    public MetaTradeController(WebSocketConnCounter connCounter, SimpMessagingTemplate simpMessagingTemplate, BlockChainService blockChainService, MetaTradeGatewayProperties properties){
         this.connCounter = connCounter;
         this.simpMessagingTemplate = simpMessagingTemplate;
         this.blockChainService = blockChainService;
+        this.properties = properties;
+
+        log.info("Start grpc server...");
+        FakeTradeServer fakeTradeServer = new FakeTradeServer(Integer.parseInt(this.properties.getGrpcServicePort()), this.blockChainService);
+        Runnable task = () -> {
+            try {
+                fakeTradeServer.Run();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        };
+        task.run();
+
         log.info("BlockChain Service initializing...");
         this.blockChainService.Init();
         log.info("BlockChain Service initialized successfully...");

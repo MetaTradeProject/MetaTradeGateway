@@ -57,8 +57,13 @@ public class BlockChainImpl implements BlockChainService{
 
     private Block CreateGenesisBlock(){
         Block block = new Block(initHash, genesisProofLevel);
-        block.getBlockBody().add(new Trade(adminAddress, broadcastAddress, initCoins, 0, System.currentTimeMillis(), 
-                "", adminPublicKey, "INIT"));
+        log.info("Waiting genesis trade...");
+        
+        //Todo
+        Trade trade = new Trade(adminAddress, broadcastAddress,
+                block.getBlockCommission() + fixedMineReward, 0, System.currentTimeMillis(), "", adminPublicKey, "REWARD");
+
+        block.getBlockBody().add(trade);
         return block;
     }
 
@@ -105,13 +110,16 @@ public class BlockChainImpl implements BlockChainService{
     @Override
     public void Init(){
         ReadConfig();
+
         status = Status.GENESIS;
         log.info("BlockChain Status: GENESIS");
         Block block = CreateGenesisBlock();
+
         status = Status.MINING;
         log.info("BlockChain Status: MINING");
         MiningBlock(block);
         chain.add(block);
+
         status = Status.FINISHED;
         log.info("BlockChain Status: FINISHED");
     }
@@ -161,6 +169,7 @@ public class BlockChainImpl implements BlockChainService{
 
 
     private void RewardMiner(Block block, String address){
+        //Todo
         Trade trade = new Trade(adminAddress, address,
                 block.getBlockCommission() + fixedMineReward, 0, System.currentTimeMillis(), adminPrivateKey, adminPublicKey, "REWARD");
         rawBlockDeque.getFirst().blockBody().add(0, trade);

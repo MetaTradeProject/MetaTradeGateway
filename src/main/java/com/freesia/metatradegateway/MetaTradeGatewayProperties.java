@@ -8,6 +8,7 @@ import org.springframework.context.annotation.PropertySource;
 @PropertySource(value = {"classpath:metatrade-gateway.properties","file:./config/metatrade-gateway.properties"},ignoreResourceNotFound = true)
 @ConfigurationProperties(prefix = "metatrade-gateway")
 public class MetaTradeGatewayProperties {
+    private String grpcServicePort;
     private String adminPrivateKey;
     private String adminPublicKey;
     private String adminAddress;
@@ -97,5 +98,13 @@ public class MetaTradeGatewayProperties {
 
     public void setSpawnSecond(long spawnSecond) {
         this.spawnSecond = spawnSecond;
+    }
+
+    public String getGrpcServicePort() {
+        return grpcServicePort;
+    }
+
+    public void setGrpcServicePort(String grpcServicePort) {
+        this.grpcServicePort = grpcServicePort;
     }
 }

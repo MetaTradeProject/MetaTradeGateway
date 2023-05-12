@@ -24,7 +24,7 @@ public class FakeTradeServer {
     }
 
     /** Start serving requests. */
-    public void Start() throws IOException {
+    private void Start() throws IOException {
         server.start();
         Runtime.getRuntime().addShutdownHook(new Thread() {
             @Override
@@ -42,7 +42,7 @@ public class FakeTradeServer {
     }
 
     /** Stop serving requests and shutdown resources. */
-    public void Stop() throws InterruptedException {
+    private void Stop() throws InterruptedException {
         if (server != null) {
             server.shutdown().awaitTermination(30, TimeUnit.SECONDS);
         }
