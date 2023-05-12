@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 import com.freesia.metatradegateway.blockchain.BlockChainService;
-import com.freesia.metatradegateway.blockchain.Trade;
+import com.freesia.metatradegateway.blockchain.model.Trade;
 import com.freesia.metatradegateway.rpc.proto.FakeTradeMessage;
 import com.freesia.metatradegateway.rpc.proto.SubmitResult;
 

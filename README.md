@@ -33,7 +33,7 @@ MetaTrade是记录交易数据的一种服务，基本的单元是`Trade`：
 `commission`即手续费，是用于提供给POW证明者的奖励，由`sender`提供
 
 #### 交易信息集合结构
-交易信息集合包括区块(`Block`)、类区块（`rawBlock`）和当前交易池
+交易信息集合包括区块(`Block`)、类区块（`RawBlock`）和当前交易池
 
 MetaTrade将所有交易信息集合分为三个层次：
 

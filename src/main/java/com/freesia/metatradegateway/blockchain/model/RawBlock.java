@@ -1,4 +1,4 @@
-package com.freesia.metatradegateway.blockchain;
+package com.freesia.metatradegateway.blockchain.model;
 
 import java.util.List;
 

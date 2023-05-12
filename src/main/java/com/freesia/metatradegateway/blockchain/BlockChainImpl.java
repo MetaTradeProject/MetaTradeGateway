@@ -6,6 +6,9 @@ import org.springframework.stereotype.Service;
 
 import com.freesia.metatradegateway.CryptoUtils;
 import com.freesia.metatradegateway.MetaTradeGatewayProperties;
+import com.freesia.metatradegateway.blockchain.model.Block;
+import com.freesia.metatradegateway.blockchain.model.RawBlock;
+import com.freesia.metatradegateway.blockchain.model.Trade;
 import com.freesia.metatradegateway.message.ProofMessage;
 
 import java.util.Deque;

@@ -13,7 +13,7 @@ import org.springframework.scheduling.support.PeriodicTrigger;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.freesia.metatradegateway.blockchain.BlockChainService;
-import com.freesia.metatradegateway.blockchain.Trade;
+import com.freesia.metatradegateway.blockchain.model.Trade;
 import com.freesia.metatradegateway.message.AgreeMessage;
 import com.freesia.metatradegateway.message.JudgeMessage;
 import com.freesia.metatradegateway.message.ProofMessage;

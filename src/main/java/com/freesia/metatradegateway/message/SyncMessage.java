@@ -2,9 +2,9 @@ package com.freesia.metatradegateway.message;
 
 import java.util.List;
 
-import com.freesia.metatradegateway.blockchain.Block;
-import com.freesia.metatradegateway.blockchain.RawBlock;
-import com.freesia.metatradegateway.blockchain.Trade;
+import com.freesia.metatradegateway.blockchain.model.Block;
+import com.freesia.metatradegateway.blockchain.model.RawBlock;
+import com.freesia.metatradegateway.blockchain.model.Trade;
 
 public record SyncMessage(List<Block> chain,
                           List<RawBlock> rawBlocks,

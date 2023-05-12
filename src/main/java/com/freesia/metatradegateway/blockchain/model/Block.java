@@ -1,4 +1,4 @@
-package com.freesia.metatradegateway.blockchain;
+package com.freesia.metatradegateway.blockchain.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.freesia.metatradegateway.CryptoUtils;
