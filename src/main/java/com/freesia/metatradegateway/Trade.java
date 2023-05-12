@@ -12,13 +12,13 @@ public class Trade {
     private String senderPublicKey;
     private String description;
 
-    public Trade(String senderAddress, String receiverAddress, double amount, double commission, long timestamp, String privateKey, String senderPublicKey, String description) {
+    public Trade(String senderAddress, String receiverAddress, double amount, double commission, long timestamp, String signature, String senderPublicKey, String description) {
         this.senderAddress = senderAddress;
         this.receiverAddress = receiverAddress;
         this.amount = amount;
         this.commission = commission;
         this.timestamp = timestamp;
-        this.signature = CryptoUtils.sign(privateKey, getHash());
+        this.signature = signature;
         this.senderPublicKey = senderPublicKey;
         this.description = description;
     }

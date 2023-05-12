@@ -54,7 +54,7 @@ public class BlockChain implements BlockChainService{
     private Block CreateGenesisBlock(){
         Block block = new Block(initHash, genesisProofLevel);
         block.getBlockBody().add(new Trade(adminAddress, broadcastAddress, initCoins, 0, System.currentTimeMillis(), 
-                adminPrivateKey, adminPublicKey, "INIT"));
+                "", adminPublicKey, "INIT"));
         return block;
     }
 
