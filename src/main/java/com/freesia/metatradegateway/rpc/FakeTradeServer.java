@@ -12,10 +12,12 @@ import io.grpc.Grpc;
 import io.grpc.InsecureServerCredentials;
 import io.grpc.Server;
 import io.grpc.stub.StreamObserver;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class FakeTradeServer {
-    private Server server;
-    private BlockChainService service;
+    private final Server server;
+    private final BlockChainService service;
 
     public FakeTradeServer(int port, BlockChainService service){
         this.service = service;
@@ -26,19 +28,16 @@ public class FakeTradeServer {
     /** Start serving requests. */
     private void Start() throws IOException {
         server.start();
-        Runtime.getRuntime().addShutdownHook(new Thread() {
-            @Override
-            public void run() {
-                System.err.println("*** shutting down gRPC server since JVM is shutting down");
-                try {
-                    FakeTradeServer.this.Stop();
-                } 
-                catch (InterruptedException e) {
-                    e.printStackTrace(System.err);
-                }
-                System.err.println("*** server shut down");
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            log.info("shutting down gRPC server since JVM is shutting down");
+            try {
+                FakeTradeServer.this.Stop();
             }
-        });
+            catch (InterruptedException e) {
+                e.printStackTrace(System.err);
+            }
+            log.info("server shut down");
+        }));
     }
 
     /** Stop serving requests and shutdown resources. */
@@ -63,7 +62,7 @@ public class FakeTradeServer {
     }
 
     private static class FakeTradeService extends FakeTradeGrpc.FakeTradeImplBase {
-        private BlockChainService service;
+        private final BlockChainService service;
 
         FakeTradeService(BlockChainService service){
             this.service = service;

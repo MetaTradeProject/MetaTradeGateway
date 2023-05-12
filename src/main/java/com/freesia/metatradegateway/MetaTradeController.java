@@ -46,7 +46,7 @@ public class MetaTradeController implements SchedulingConfigurer {
         this.blockChainService = blockChainService;
         this.properties = properties;
 
-        log.info("Start grpc server...");
+        log.info("Start grpc server on port " + this.properties.getGrpcServicePort());
         FakeTradeServer fakeTradeServer = new FakeTradeServer(Integer.parseInt(this.properties.getGrpcServicePort()), this.blockChainService);
         Runnable task = () -> {
             try {
@@ -55,7 +55,9 @@ public class MetaTradeController implements SchedulingConfigurer {
                 e.printStackTrace();
             }
         };
-        task.run();
+        Thread thread = new Thread(task);
+        thread.setDaemon(true);
+        thread.start();
 
         log.info("BlockChain Service initializing...");
         this.blockChainService.Init();
