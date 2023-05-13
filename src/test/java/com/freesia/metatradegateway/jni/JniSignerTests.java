@@ -1,4 +1,7 @@
+package com.freesia.metatradegateway.jni;
+
 import org.junit.jupiter.api.Test;
+
 
 public class JniSignerTests{
     @Test
