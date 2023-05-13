@@ -67,9 +67,6 @@ public class BlockChainImpl implements BlockChainService{
                 block.getBlockCommission() + fixedMineReward, 0, System.currentTimeMillis(), "", adminPublicKey, "INIT");
         JniSigner signer = new JniSigner();
         String signature = signer.SignTrade(trade.getHash(), adminPrivateKey);
-
-        log.info("signature: " + signature);
-
         trade.setSignature(signature);
 
         block.getBlockBody().add(trade);

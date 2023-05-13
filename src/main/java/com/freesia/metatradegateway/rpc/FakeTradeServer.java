@@ -36,7 +36,7 @@ public class FakeTradeServer {
             catch (InterruptedException e) {
                 e.printStackTrace(System.err);
             }
-            log.info("server shut down");
+            log.info("rpc server shut down");
         }));
     }
 
