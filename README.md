@@ -483,3 +483,7 @@ metatrade-gateway.spawnSecond=600
 节点如果同意之前收到的POW消息时，向网关发送`AgreeMessage`消息
 ##### 请求同步 `/meta-trade/post/sync`
 节点需要同步区块网络信息时，向网关发送空消息
+
+## 版本信息
+- 1.0.0: 初版
+- 1.1.0: 更新Signer JNI 和 Grpc Server
