@@ -9,6 +9,7 @@ import com.freesia.metatradegateway.MetaTradeGatewayProperties;
 import com.freesia.metatradegateway.blockchain.model.Block;
 import com.freesia.metatradegateway.blockchain.model.RawBlock;
 import com.freesia.metatradegateway.blockchain.model.Trade;
+import com.freesia.metatradegateway.jni.JniSigner;
 import com.freesia.metatradegateway.message.ProofMessage;
 
 import java.util.Deque;
@@ -27,9 +28,9 @@ public class BlockChainImpl implements BlockChainService{
 
     private final MetaTradeGatewayProperties properties;
 
-    private String adminPrivateKey = "0";
-    private String adminPublicKey = "0";
-    private String adminAddress = "0";
+    private String adminPrivateKey = "8F72F6B29E6E225A36B68DFE333C7CE5E55D83249D3D2CD6332671FA445C4DD3";
+    private String adminPublicKey = "0259dee66ab619c4a9e215d070052d1ae3a2075e5f58c67516b2e4884a88c79be9";
+    private String adminAddress = "16RAWnYJhHB2M9c1k9LQywo6CtxGe38vi5";
     private String broadcastAddress = "*";
     private double initCoins = 100;
     private double fixedMineReward = 5.00;
@@ -60,11 +61,16 @@ public class BlockChainImpl implements BlockChainService{
 
     private Block CreateGenesisBlock(){
         Block block = new Block(initHash, genesisProofLevel);
-        log.info("Waiting genesis trade...");
+        log.info("Waiting sign trade...");
         
-        //Todo
         Trade trade = new Trade(adminAddress, broadcastAddress,
-                block.getBlockCommission() + fixedMineReward, 0, System.currentTimeMillis(), "", adminPublicKey, "REWARD");
+                block.getBlockCommission() + fixedMineReward, 0, System.currentTimeMillis(), "", adminPublicKey, "INIT");
+        JniSigner signer = new JniSigner();
+        String signature = signer.SignTrade(trade.getHash(), adminPrivateKey);
+
+        log.info("signature: " + signature);
+
+        trade.setSignature(signature);
 
         block.getBlockBody().add(trade);
         return block;
@@ -174,7 +180,9 @@ public class BlockChainImpl implements BlockChainService{
     private void RewardMiner(Block block, String address){
         //Todo
         Trade trade = new Trade(adminAddress, address,
-                block.getBlockCommission() + fixedMineReward, 0, System.currentTimeMillis(), adminPrivateKey, adminPublicKey, "REWARD");
+            block.getBlockCommission() + fixedMineReward, 0, System.currentTimeMillis(), "", adminPublicKey, "REWARD");
+        JniSigner signer = new JniSigner();
+        trade.setSignature(signer.SignTrade(trade.getHash(), adminPrivateKey));
         rawBlockDeque.getFirst().blockBody().add(0, trade);
         log.info(String.format("BlockChain Rewarding Miner: %s %f", trade.getReceiverAddress(), trade.getAmount()));
     }
