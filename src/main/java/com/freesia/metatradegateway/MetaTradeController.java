@@ -3,6 +3,7 @@ package com.freesia.metatradegateway;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.messaging.simp.annotation.SubscribeMapping;
@@ -16,6 +17,7 @@ import com.freesia.metatradegateway.blockchain.BlockChainService;
 import com.freesia.metatradegateway.blockchain.model.Trade;
 import com.freesia.metatradegateway.message.AgreeMessage;
 import com.freesia.metatradegateway.message.JudgeMessage;
+import com.freesia.metatradegateway.message.LocateMessage;
 import com.freesia.metatradegateway.message.ProofMessage;
 import com.freesia.metatradegateway.message.SemiSyncMessage;
 import com.freesia.metatradegateway.message.SpawnMessage;
@@ -65,18 +67,18 @@ public class MetaTradeController implements SchedulingConfigurer {
     }
 
 
-    @SubscribeMapping("/init")
-    public SyncMessage handleInit(){
-        var msg = new SyncMessage(blockChainService.getChain(), blockChainService.getRawBlockList(), blockChainService.getTradeList());
+    @SubscribeMapping("/init/{startIndex}")
+    public SyncMessage handleInit(@DestinationVariable int startIndex){
+        var msg = new SyncMessage(blockChainService.getChainByIndex(startIndex), blockChainService.getRawBlockList(), blockChainService.getTradeList());
 
         return msg;
     }
 
     @MessageMapping("/sync")
-    public void handleSync(Principal principal){
+    public void handleSync(Principal principal, LocateMessage message){
         log.info(String.valueOf(System.currentTimeMillis()));
         log.info(String.format("Send Sync Msg to %s", principal.getName()));
-        var msg = new SyncMessage(blockChainService.getChain(), blockChainService.getRawBlockList(), blockChainService.getTradeList());
+        var msg = new SyncMessage(blockChainService.getChainByIndex(message.startIndex()), blockChainService.getRawBlockList(), blockChainService.getTradeList());
         simpMessagingTemplate.convertAndSendToUser(principal.getName(), "/meta-trade/subscribe/sync", msg);
     }
 

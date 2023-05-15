@@ -159,6 +159,14 @@ public class BlockChainImpl implements BlockChainService{
     }
 
     @Override
+    public List<Block> getChainByIndex(int index){
+        lock.readLock().lock();
+        var chain = this.chain.subList(index, this.chain.size());
+        lock.readLock().unlock();
+        return chain;
+    }
+
+    @Override
     public List<RawBlock> getRawBlockList(){
         lock.readLock().lock();
         var rawBlockList = this.rawBlockDeque.stream().toList();

@@ -13,6 +13,7 @@ import java.util.List;
 public interface BlockChainService {
     void Init();
     List<Block> getChain();
+    List<Block> getChainByIndex(int index);
     List<RawBlock> getRawBlockList();
     List<Trade> getTradeList();
     void insertTrade(Trade trade);
