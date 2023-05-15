@@ -125,6 +125,7 @@ public class BlockChainImpl implements BlockChainService{
         log.info("BlockChain Status: MINING");
         MiningBlock(block);
         chain.add(block);
+        RewardMiner(block, adminAddress);
 
         status = Status.FINISHED;
         log.info("BlockChain Status: FINISHED");
@@ -175,13 +176,20 @@ public class BlockChainImpl implements BlockChainService{
 
 
     private void RewardMiner(Block block, String address){
-        //Todo
         Trade trade = new Trade(adminAddress, address,
             block.getBlockCommission() + fixedMineReward, 0, System.currentTimeMillis(), "", adminPublicKey, "REWARD");
         JniSigner signer = new JniSigner();
         trade.setSignature(signer.SignTrade(trade.getHash(), adminPrivateKey));
-        rawBlockDeque.getFirst().blockBody().add(0, trade);
+        lock.writeLock().lock();
+        if (rawBlockDeque.size() == 0){
+            this.tradeList.add(0, trade);
+        }
+        else{
+            rawBlockDeque.getFirst().blockBody().add(0, trade);
+        }
+        lock.writeLock().unlock();
         log.info(String.format("BlockChain Rewarding Miner: %s %f", trade.getReceiverAddress(), trade.getAmount()));
+
     }
 
 
