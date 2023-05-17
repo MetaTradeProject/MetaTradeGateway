@@ -32,8 +32,8 @@ public class BlockChainImpl implements BlockChainService{
     private String adminPublicKey = "0259dee66ab619c4a9e215d070052d1ae3a2075e5f58c67516b2e4884a88c79be9";
     private String adminAddress = "16RAWnYJhHB2M9c1k9LQywo6CtxGe38vi5";
     private String broadcastAddress = "*";
-    private double initCoins = 100;
-    private double fixedMineReward = 5.00;
+    private long initCoins = 10000;
+    private long fixedMineReward = 500;
     private String initHash = "1";
     private int proofLevel = 4;
     private int genesisProofLevel = 1;

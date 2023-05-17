@@ -13,8 +13,8 @@ public class MetaTradeGatewayProperties {
     private String adminPublicKey;
     private String adminAddress;
     private String broadcastAddress;
-    private double initCoins;
-    private double fixedMineReward;
+    private long initCoins;
+    private long fixedMineReward;
     private String initHash;
     private int proofLevel;
     private int genesisProofLevel;
@@ -52,19 +52,19 @@ public class MetaTradeGatewayProperties {
         this.broadcastAddress = broadcastAddress;
     }
 
-    public double getInitCoins() {
+    public long getInitCoins() {
         return initCoins;
     }
 
-    public void setInitCoins(double initCoins) {
+    public void setInitCoins(long initCoins) {
         this.initCoins = initCoins;
     }
 
-    public double getFixedMineReward() {
+    public long getFixedMineReward() {
         return fixedMineReward;
     }
 
-    public void setFixedMineReward(double fixedMineReward) {
+    public void setFixedMineReward(long fixedMineReward) {
         this.fixedMineReward = fixedMineReward;
     }
 

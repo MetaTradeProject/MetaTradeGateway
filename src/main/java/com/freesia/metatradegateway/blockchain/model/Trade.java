@@ -6,19 +6,19 @@ import com.freesia.metatradegateway.CryptoUtils;
 public class Trade {
     private String senderAddress;
     private String receiverAddress;
-    private double amount;
-    private double commission;
-    private long timestamp;
+    private long amount;
+    private long commission;
+    private String timestamp;
     private String signature;
     private String senderPublicKey;
     private String description;
 
-    public Trade(String senderAddress, String receiverAddress, double amount, double commission, long timestamp, String signature, String senderPublicKey, String description) {
+    public Trade(String senderAddress, String receiverAddress, long amount, long commission, long timestamp, String signature, String senderPublicKey, String description) {
         this.senderAddress = senderAddress;
         this.receiverAddress = receiverAddress;
         this.amount = amount;
         this.commission = commission;
-        this.timestamp = timestamp;
+        this.timestamp = Long.toString(timestamp);
         this.signature = signature;
         this.senderPublicKey = senderPublicKey;
         this.description = description;
@@ -50,38 +50,38 @@ public class Trade {
 
 
 
-    public double getAmount() {
+    public long getAmount() {
         return amount;
     }
 
 
 
-    public void setAmount(double amount) {
+    public void setAmount(long amount) {
         this.amount = amount;
     }
 
 
 
-    public double getCommission() {
+    public long getCommission() {
         return commission;
     }
 
 
 
-    public void setCommission(double commission) {
+    public void setCommission(long commission) {
         this.commission = commission;
     }
 
 
 
     public long getTimestamp() {
-        return timestamp;
+        return Long.parseLong(timestamp);
     }
 
 
 
     public void setTimestamp(long timestamp) {
-        this.timestamp = timestamp;
+        this.timestamp = Long.toString(timestamp);
     }
 
 

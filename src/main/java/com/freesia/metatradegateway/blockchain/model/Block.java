@@ -36,8 +36,8 @@ public class Block {
     }
 
     @JsonIgnore
-    public double getBlockCommission() {
-        double ret = 0;
+    public long getBlockCommission() {
+        long ret = 0;
         for(Trade trade: blockBody){
             ret += trade.getCommission();
         }
