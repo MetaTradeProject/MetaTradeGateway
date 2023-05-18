@@ -144,7 +144,7 @@ public class BlockChainImpl implements BlockChainService{
             return -1;
         }
         lock.writeLock().lock();
-        rawBlockDeque.push(new RawBlock(proofLevel, tradeList));
+        rawBlockDeque.push(new RawBlock(proofLevel, new CopyOnWriteArrayList<>(tradeList)));
         this.tradeList.clear();
         lock.writeLock().unlock();
         return proofLevel;
