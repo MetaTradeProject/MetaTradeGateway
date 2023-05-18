@@ -16,12 +16,14 @@
 ### 模型数据结构
 #### 交易信息结构
 MetaTrade是记录交易数据的一种服务，基本的单元是`Trade`：
+
+交易系统中货币/物品数量倍率为100, 实际为两位定点小数
 ```json
 {
     "senderAddress": "0000000000000000",
     "receiverAddress": "*",
-    "amount": 10.00,
-    "commission": 0.01,
+    "amount": 1000,
+    "commission": 1,
     "timestamp": 1682177056,
         "signature": "*",
         "senderPublicKey": "*",
@@ -102,8 +104,8 @@ metatrade-gateway.admin-address=0000000000000000
 metatrade-gateway.admin-private-key=0000000000000000
 metatrade-gateway.admin-public-key=0000000000000000
 metatrade-gateway.broadcastAddress=FFFFFFFFFFFFFFFF
-metatrade-gateway.fixedMineReward=5.00
-metatrade-gateway.initCoins=100
+metatrade-gateway.fixedMineReward=500
+metatrade-gateway.initCoins=10000
 metatrade-gateway.initHash=1
 metatrade-gateway.proofLevel=4
 metatrade-gateway.genesisProofLevel=4
@@ -121,15 +123,15 @@ metatrade-gateway.spawnSecond=600
 
 ## Stomp服务
 ### Stomp端点地址
-`ws://host:7285/meta-trade/stomp`
+`ws://host/meta-trade/stomp`
 ### 消息格式
 #### Trade
 ```json
 {
     "senderAddress": "0000000000000000",
     "receiverAddress": "FFFFFFFFFFFFFFFF",
-    "amount": 10.00,
-    "commission": 0.01,
+    "amount": 1000,
+    "commission": 1,
     "timestamp": 1682177056,
     "signature": "*",
     "senderPublicKey": "*",
@@ -149,8 +151,8 @@ metatrade-gateway.spawnSecond=600
                 {
                     "senderAddress": "abc",
                     "receiverAddress": "def",
-                    "amount": 10.00,
-                    "commission": 0.01,
+                    "amount": 1000,
+                    "commission": 1,
                     "timestamp": 1682177056,
                     "signature": "*",
                     "senderPublicKey": "*",
@@ -159,8 +161,8 @@ metatrade-gateway.spawnSecond=600
                 {
                     "senderAddress": "123",
                     "receiverAddress": "456",
-                    "amount": 15.00,
-                    "commission": 0.01,
+                    "amount": 1500,
+                    "commission": 1,
                     "timestamp": 1682577056,
                     "signature": "*",
                     "senderPublicKey": "*",
@@ -178,8 +180,8 @@ metatrade-gateway.spawnSecond=600
                 {
                     "senderAddress": "abc",
                     "receiverAddress": "def",
-                    "amount": 10.00,
-                    "commission": 0.01,
+                    "amount": 1000,
+                    "commission": 1,
                     "timestamp": 1682177056,
                     "signature": "*",
                     "senderPublicKey": "*",
@@ -188,8 +190,8 @@ metatrade-gateway.spawnSecond=600
                 {
                     "senderAddress": "123",
                     "receiverAddress": "456",
-                    "amount": 15.00,
-                    "commission": 0.01,
+                    "amount": 1500,
+                    "commission": 1,
                     "timestamp": 1682577056,
                     "signature": "*",
                     "senderPublicKey": "*",
@@ -206,8 +208,8 @@ metatrade-gateway.spawnSecond=600
                 {
                     "senderAddress": "abc",
                     "receiverAddress": "def",
-                    "amount": 10.00,
-                    "commission": 0.01,
+                    "amount": 1000,
+                    "commission": 1,
                     "timestamp": 1682177056,
                     "signature": "*",
                     "senderPublicKey": "*",
@@ -216,8 +218,8 @@ metatrade-gateway.spawnSecond=600
                 {
                     "senderAddress": "123",
                     "receiverAddress": "456",
-                    "amount": 15.00,
-                    "commission": 0.01,
+                    "amount": 1500,
+                    "commission": 1,
                     "timestamp": 1682577056,
                     "signature": "*",
                     "senderPublicKey": "*",
@@ -232,8 +234,8 @@ metatrade-gateway.spawnSecond=600
                 {
                     "senderAddress": "abc",
                     "receiverAddress": "def",
-                    "amount": 10.00,
-                    "commission": 0.01,
+                    "amount": 1000,
+                    "commission": 1,
                     "timestamp": 1682177056,
                     "signature": "*",
                     "senderPublicKey": "*",
@@ -242,8 +244,8 @@ metatrade-gateway.spawnSecond=600
                 {
                     "senderAddress": "123",
                     "receiverAddress": "456",
-                    "amount": 15.00,
-                    "commission": 0.01,
+                    "amount": 1500,
+                    "commission": 1,
                     "timestamp": 1682577056,
                     "signature": "*",
                     "senderPublicKey": "*",
@@ -257,8 +259,8 @@ metatrade-gateway.spawnSecond=600
         {
             "senderAddress": "abc",
             "receiverAddress": "def",
-            "amount": 10.00,
-            "commission": 0.01,
+            "amount": 1000,
+            "commission": 1,
             "timestamp": 1682177056,
             "signature": "*",
             "senderPublicKey": "*",
@@ -268,8 +270,8 @@ metatrade-gateway.spawnSecond=600
         {
             "senderAddress": "123",
             "receiverAddress": "456",
-            "amount": 15.00,
-            "commission": 0.01,
+            "amount": 1500,
+            "commission": 1,
             "timestamp": 1682577056,
             "signature": "*",
             "senderPublicKey": "*",
@@ -304,8 +306,8 @@ metatrade-gateway.spawnSecond=600
             {
                 "senderAddress": "abc",
                 "receiverAddress": "def",
-                "amount": 10.00,
-                "commission": 0.01,
+                "amount": 1000,
+                "commission": 1,
                 "timestamp": 1682177056,
                 "signature": "*",
                 "senderPublicKey": "*",
@@ -314,8 +316,8 @@ metatrade-gateway.spawnSecond=600
             {
                 "senderAddress": "123",
                 "receiverAddress": "456",
-                "amount": 15.00,
-                "commission": 0.01,
+                "amount": 1500,
+                "commission": 1,
                 "timestamp": 1682577056,
                 "signature": "*",
                 "senderPublicKey": "*",
@@ -331,8 +333,8 @@ metatrade-gateway.spawnSecond=600
                 {
                     "senderAddress": "abc",
                     "receiverAddress": "def",
-                    "amount": 10.00,
-                    "commission": 0.01,
+                    "amount": 1000,
+                    "commission": 1,
                     "timestamp": 1682177056,
                     "signature": "*",
                     "senderPublicKey": "*",
@@ -341,8 +343,8 @@ metatrade-gateway.spawnSecond=600
                 {
                     "senderAddress": "123",
                     "receiverAddress": "456",
-                    "amount": 15.00,
-                    "commission": 0.01,
+                    "amount": 1500,
+                    "commission": 1,
                     "timestamp": 1682577056,
                     "signature": "*",
                     "senderPublicKey": "*",
@@ -357,8 +359,8 @@ metatrade-gateway.spawnSecond=600
                 {
                     "senderAddress": "abc",
                     "receiverAddress": "def",
-                    "amount": 10.00,
-                    "commission": 0.01,
+                    "amount": 1000,
+                    "commission": 1,
                     "timestamp": 1682177056,
                     "signature": "*",
                     "senderPublicKey": "*",
@@ -367,8 +369,8 @@ metatrade-gateway.spawnSecond=600
                 {
                     "senderAddress": "123",
                     "receiverAddress": "456",
-                    "amount": 15.00,
-                    "commission": 0.01,
+                    "amount": 1500,
+                    "commission": 1,
                     "timestamp": 1682577056,
                     "signature": "*",
                     "senderPublicKey": "*",
@@ -382,8 +384,8 @@ metatrade-gateway.spawnSecond=600
         {
             "senderAddress": "abc",
             "receiverAddress": "def",
-            "amount": 10.00,
-            "commission": 0.01,
+            "amount": 1000,
+            "commission": 1,
             "timestamp": 1682177056,
             "signature": "*",
             "senderPublicKey": "*",
@@ -393,8 +395,8 @@ metatrade-gateway.spawnSecond=600
         {
             "senderAddress": "123",
             "receiverAddress": "456",
-            "amount": 15.00,
-            "commission": 0.01,
+            "amount": 1500,
+            "commission": 1,
             "timestamp": 1682577056,
             "signature": "*",
             "senderPublicKey": "*",
@@ -416,8 +418,8 @@ metatrade-gateway.spawnSecond=600
             {
                 "senderAddress": "abc",
                 "receiverAddress": "def",
-                "amount": 10.00,
-                "commission": 0.01,
+                "amount": 1000,
+                "commission": 1,
                 "timestamp": 1682177056,
                 "signature": "*",
                 "senderPublicKey": "*",
@@ -426,8 +428,8 @@ metatrade-gateway.spawnSecond=600
             {
                 "senderAddress": "123",
                 "receiverAddress": "456",
-                "amount": 15.00,
-                "commission": 0.01,
+                "amount": 1500,
+                "commission": 1,
                 "timestamp": 1682577056,
                 "signature": "*",
                 "senderPublicKey": "*",
