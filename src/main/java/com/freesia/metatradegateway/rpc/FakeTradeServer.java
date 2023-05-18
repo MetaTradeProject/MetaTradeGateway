@@ -71,7 +71,7 @@ public class FakeTradeServer {
         @Override
         public void submitFakeTrade(FakeTradeMessage request, StreamObserver<SubmitResult> responseObserver) {
             Trade trade = new Trade(request.getSenderAddress(), request.getReceiverAddress(), 
-                request.getAmount(), 0, request.getTimestamp(), request.getSignature(), request.getSenderPublicKey(), request.getDescription());
+                100, 0, request.getTimestamp(), request.getSignature(), request.getSenderPublicKey(), request.getDescription());
             
             service.insertTrade(trade);
             

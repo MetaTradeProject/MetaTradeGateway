@@ -100,9 +100,9 @@ public class BlockChainImpl implements BlockChainService{
         broadcastAddress = properties.getBroadcastAddress();
         log.info(String.format("BroadcastAddress: %s", broadcastAddress));
         initCoins = properties.getInitCoins();
-        log.info(String.format("InitCoins: %f", initCoins));
+        log.info(String.format("InitCoins: %d", initCoins));
         fixedMineReward = properties.getFixedMineReward();
-        log.info(String.format("FixedMineReward: %f", fixedMineReward));
+        log.info(String.format("FixedMineReward: %d", fixedMineReward));
         initHash = properties.getInitHash();
         log.info(String.format("InitHash: %s", initHash));
         proofLevel = properties.getProofLevel();
