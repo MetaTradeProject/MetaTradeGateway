@@ -196,7 +196,7 @@ public class BlockChainImpl implements BlockChainService{
             rawBlockDeque.getFirst().blockBody().add(0, trade);
         }
         lock.writeLock().unlock();
-        log.info(String.format("BlockChain Rewarding Miner: %s %f", trade.getReceiverAddress(), trade.getAmount()));
+        log.info(String.format("BlockChain Rewarding Miner: %s %d", trade.getReceiverAddress(), trade.getAmount()));
 
     }
 
