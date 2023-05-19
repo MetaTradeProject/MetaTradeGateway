@@ -38,6 +38,7 @@ public class BlockChainImpl implements BlockChainService{
     private int proofLevel = 4;
     private int genesisProofLevel = 1;
     private long spawnSecond = 600;
+    private long minTradeCount = 1;
 
     public enum Status {
         NULL, GENESIS, MINING, FINISHED
@@ -111,6 +112,8 @@ public class BlockChainImpl implements BlockChainService{
         log.info(String.format("GenesisProofLevel: %d", genesisProofLevel));
         spawnSecond = properties.getSpawnSecond();
         log.info(String.format("SpawnSecond: %d", spawnSecond));
+        minTradeCount = properties.getMinTradeCount();
+        log.info(String.format("MinTradeCount: %d", minTradeCount));
     }
 
     @Override
@@ -140,7 +143,7 @@ public class BlockChainImpl implements BlockChainService{
 
     @Override
     public int spawnRawBlock(){
-        if(status != Status.FINISHED || tradeList.size() == 0){
+        if(status != Status.FINISHED || tradeList.size() < minTradeCount){
             return -1;
         }
         lock.writeLock().lock();

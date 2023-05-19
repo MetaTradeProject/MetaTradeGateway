@@ -68,6 +68,8 @@ MetaTrade将所有交易信息集合分为三个层次：
 
 一般来说，不会出现空的类区块，即当前交易池中如果为空，则网关不会进行`Spawn`操作
 
+可以通过调整网关参数设置`Block`中的最小交易集合数量
+
 #### POW证明
 在网络中只能有针对一个区块的POW，因此所有涉及POW提交和验证的区块都指的是当前`rawBlockDeque`中的第一个`rawBlock`
 
@@ -110,6 +112,7 @@ metatrade-gateway.initHash=1
 metatrade-gateway.proofLevel=4
 metatrade-gateway.genesisProofLevel=4
 metatrade-gateway.spawnSecond=600
+metatrade-gateway.minTradeCount=1
 ```
 
 `metatrade-gateway.proofLevel`和`metatrade-gateway.spawnSecond`在当前固定，后续可能随着网络的变化动态调整
