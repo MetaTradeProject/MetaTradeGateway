@@ -17,7 +17,7 @@
 ## 项目依赖
 - [Spring Websocket](https://spring.io/guides/gs/messaging-stomp-websocket/): 提供`Websocket`服务`Stomp`消息框架
 - [Jave Native Interface](https://docs.oracle.com/javase/8/docs/technotes/guides/jni): 提供`C++/Native`方法调用框架
-- [secp256k1](https://github.com/bitcoin-core/secp256k1)：提供区块链公钥和地址生成的`ECC`算法和公钥压缩算法
+- [secp256k1](https://github.com/bitcoin-core/secp256k1)：提供`Secp256k1`签名算法
 - [gRPC](https://github.com/google/grpc):提供与`MetatradePublisher`通信的消息与`RPC`协议
 
 ## 模型介绍
