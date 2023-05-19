@@ -34,7 +34,7 @@ MetaTrade是记录交易数据的一种服务，基本的单元是`Trade`：
 ```
 在网关服务中，地址是表示交易角色的唯一方式，[地址是如何产生的?](https://github.com/Freesia810/MetaTradeGateway.git)
 
-`commission`即手续费，是用于提供给POW证明者的奖励，由`sender`提供
+`commission`即手续费，是用于提供给POW证明者的奖励，由`sender`提供，默认情况下，`Coin`交易为1%,非`Coin`交易为固定值，当前为`500`
 
 #### 交易信息集合结构
 交易信息集合包括区块(`Block`)、类区块（`RawBlock`）和当前交易池
