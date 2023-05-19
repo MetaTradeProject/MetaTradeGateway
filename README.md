@@ -492,7 +492,7 @@ metatrade-gateway.minTradeCount=1
 节点需要同步区块网络信息时，向网关发送空消息
 
 ### gRPC服务
-为了提供更加灵活的模块化`Submit trade`服务，`MetatradeGateway`提供了用于直接提交交易(无手续费)的`gRPC`服务，具体使用方式请参考
+为了提供更加灵活的模块化`Submit trade`服务，`MetatradeGateway`提供了用于直接提交交易(无手续费)的`gRPC`服务，具体使用方式请参考[MetatradePublisher](https://github.com/freesia810/metatradepublisher)中的`Fake Trade`模块
 
 ## 版本信息
 - 1.0.0: 初版
