@@ -1,5 +1,5 @@
 # MetaTrade Gateway 
-基于WebSocket和Stomp服务的区块链广播网关
+基于Stomp服务的区块链广播网关
 
 # 目录
 [模型数据结构](#模型数据结构)
@@ -11,6 +11,8 @@
 [Stomp服务](#Stomp服务)
 
 [API接口](#API接口)
+
+[gRPC服务](#gRPC服务)
 
 ## 模型介绍
 ### 模型数据结构
