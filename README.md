@@ -124,7 +124,7 @@ metatrade-gateway.minTradeCount=1
 
 在这个区块中，`prevHash`和`proofLevel`由配置`metatrade-gateway.initHash`和`metatrade-gateway.genesisProofLevel`指定，只存储一条交易记录，即由`admin-address`发送给`broadcastAddress`的`initCoins`的交易记录（无手续费）
 
-`broadcastAddress`地址代表任何网络中的节点，这意味着，任何新加入网络的节点都会获得`initCoins`的货币作为账户初始余额
+`broadcastAddress`地址代表网络中的任何节点，这意味着，任何新加入网络的节点都会获得`initCoins`的货币作为账户初始余额
 
 ## Stomp服务
 ### Stomp端点地址
@@ -490,6 +490,9 @@ metatrade-gateway.minTradeCount=1
 节点如果同意之前收到的POW消息时，向网关发送`AgreeMessage`消息
 ##### 请求同步 `/meta-trade/post/sync`
 节点需要同步区块网络信息时，向网关发送空消息
+
+### gRPC服务
+为了提供更加灵活的模块化`Submit trade`服务，`MetatradeGateway`提供了用于直接提交交易(无手续费)的`gRPC`服务，具体使用方式请参考
 
 ## 版本信息
 - 1.0.0: 初版
