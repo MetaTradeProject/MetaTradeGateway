@@ -19,6 +19,7 @@ public class MetaTradeGatewayProperties {
     private int proofLevel;
     private int genesisProofLevel;
     private long spawnSecond;
+    private long minTradeCount;
 
     public String getAdminPrivateKey() {
         return adminPrivateKey;
@@ -106,5 +107,13 @@ public class MetaTradeGatewayProperties {
 
     public void setGrpcServicePort(String grpcServicePort) {
         this.grpcServicePort = grpcServicePort;
+    }
+
+    public long getMinTradeCount() {
+        return minTradeCount;
+    }
+
+    public void setMinTradeCount(long minTradeCount) {
+        this.minTradeCount = minTradeCount;
     }
 }

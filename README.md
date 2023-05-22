@@ -1,5 +1,5 @@
 # MetaTrade Gateway 
-基于WebSocket和Stomp服务的区块链广播网关
+基于Stomp服务的区块链广播网关
 
 # 目录
 [模型数据结构](#模型数据结构)
@@ -12,12 +12,20 @@
 
 [API接口](#API接口)
 
+[gRPC服务](#gRPC服务)
+
+## 项目依赖
+- [Spring Websocket](https://spring.io/guides/gs/messaging-stomp-websocket/): 提供`Websocket`服务`Stomp`消息框架
+- [Jave Native Interface](https://docs.oracle.com/javase/8/docs/technotes/guides/jni): 提供`C++/Native`方法调用框架
+- [secp256k1](https://github.com/bitcoin-core/secp256k1)：提供`Secp256k1`签名算法
+- [gRPC](https://github.com/google/grpc):提供与`MetatradePublisher`通信的消息与`RPC`协议
+
 ## 模型介绍
 ### 模型数据结构
 #### 交易信息结构
 MetaTrade是记录交易数据的一种服务，基本的单元是`Trade`：
 
-交易系统中货币/物品数量倍率为100, 实际为两位定点小数
+交易系统中货币/物品数量倍率为`100`, 实际为两位定点小数
 ```json
 {
     "senderAddress": "0000000000000000",
@@ -32,7 +40,7 @@ MetaTrade是记录交易数据的一种服务，基本的单元是`Trade`：
 ```
 在网关服务中，地址是表示交易角色的唯一方式，[地址是如何产生的?](https://github.com/Freesia810/MetaTradeGateway.git)
 
-`commission`即手续费，是用于提供给POW证明者的奖励，由`sender`提供
+`commission`即手续费，是用于提供给POW证明者的奖励，由`sender`提供，默认情况下，`Coin`交易为`1%`,非`Coin`交易为固定值，当前为`500`
 
 #### 交易信息集合结构
 交易信息集合包括区块(`Block`)、类区块（`RawBlock`）和当前交易池
@@ -67,6 +75,8 @@ MetaTrade将所有交易信息集合分为三个层次：
 当网关判断需要`Spawn`时，会向所有节点广播消息，指示节点将自己的交易池中的所有交易信息打包类区块，打包后清空交易池
 
 一般来说，不会出现空的类区块，即当前交易池中如果为空，则网关不会进行`Spawn`操作
+
+可以通过调整网关参数设置`Block`中的最小交易集合数量
 
 #### POW证明
 在网络中只能有针对一个区块的POW，因此所有涉及POW提交和验证的区块都指的是当前`rawBlockDeque`中的第一个`rawBlock`
@@ -110,6 +120,7 @@ metatrade-gateway.initHash=1
 metatrade-gateway.proofLevel=4
 metatrade-gateway.genesisProofLevel=4
 metatrade-gateway.spawnSecond=600
+metatrade-gateway.minTradeCount=1
 ```
 
 `metatrade-gateway.proofLevel`和`metatrade-gateway.spawnSecond`在当前固定，后续可能随着网络的变化动态调整
@@ -119,7 +130,7 @@ metatrade-gateway.spawnSecond=600
 
 在这个区块中，`prevHash`和`proofLevel`由配置`metatrade-gateway.initHash`和`metatrade-gateway.genesisProofLevel`指定，只存储一条交易记录，即由`admin-address`发送给`broadcastAddress`的`initCoins`的交易记录（无手续费）
 
-`broadcastAddress`地址代表任何网络中的节点，这意味着，任何新加入网络的节点都会获得`initCoins`的货币作为账户初始余额
+`broadcastAddress`地址代表网络中的任何节点，这意味着，任何新加入网络的节点都会获得`initCoins`的货币作为账户初始余额
 
 ## Stomp服务
 ### Stomp端点地址
@@ -486,6 +497,9 @@ metatrade-gateway.spawnSecond=600
 ##### 请求同步 `/meta-trade/post/sync`
 节点需要同步区块网络信息时，向网关发送空消息
 
+### gRPC服务
+为了提供更加灵活的模块化`Submit trade`服务，`MetatradeGateway`提供了用于直接提交交易(无手续费)的`gRPC`服务，具体使用方式请参考[MetatradePublisher](https://github.com/freesia810/metatradepublisher)中的`Fake Trade`模块
+
 ## 版本信息
-- 1.0.0: 初版
-- 1.1.0: 更新Signer JNI 和 Grpc Server
+- `1.0.0`: 初版
+- `1.1.0`: 更新Signer JNI 和 Grpc Server
