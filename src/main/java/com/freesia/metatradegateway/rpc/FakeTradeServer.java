@@ -3,6 +3,8 @@ package com.freesia.metatradegateway.rpc;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
+import org.springframework.messaging.simp.SimpMessagingTemplate;
+
 import com.freesia.metatradegateway.blockchain.BlockChainService;
 import com.freesia.metatradegateway.blockchain.model.Trade;
 import com.freesia.metatradegateway.rpc.proto.FakeTradeMessage;
@@ -19,10 +21,10 @@ public class FakeTradeServer {
     private final Server server;
     private final BlockChainService service;
 
-    public FakeTradeServer(int port, BlockChainService service){
+    public FakeTradeServer(int port, BlockChainService service, SimpMessagingTemplate simpMessagingTemplate){
         this.service = service;
         this.server = Grpc.newServerBuilderForPort(port, InsecureServerCredentials.create()).
-            addService(new FakeTradeService(this.service)).build();
+            addService(new FakeTradeService(this.service, simpMessagingTemplate)).build();
     }
 
     /** Start serving requests. */
@@ -63,9 +65,11 @@ public class FakeTradeServer {
 
     private static class FakeTradeService extends FakeTradeGrpc.FakeTradeImplBase {
         private final BlockChainService service;
+        private final SimpMessagingTemplate simpMessagingTemplate;
 
-        FakeTradeService(BlockChainService service){
+        FakeTradeService(BlockChainService service, SimpMessagingTemplate simpMessagingTemplate){
             this.service = service;
+            this.simpMessagingTemplate = simpMessagingTemplate;
         }
 
         @Override
@@ -74,7 +78,8 @@ public class FakeTradeServer {
                 request.getAmount(), 0, request.getTimestamp(), request.getSignature(), request.getSenderPublicKey(), request.getDescription());
             
             service.insertTrade(trade);
-            
+            simpMessagingTemplate.convertAndSend("/meta-trade/subscribe/trade", trade);
+
             var res = SubmitResult.newBuilder().setResult(true).build();
             responseObserver.onNext(res);
             responseObserver.onCompleted();

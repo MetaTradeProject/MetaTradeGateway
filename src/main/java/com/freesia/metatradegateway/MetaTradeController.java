@@ -49,7 +49,7 @@ public class MetaTradeController implements SchedulingConfigurer {
         this.properties = properties;
 
         log.info("Start grpc server on port " + this.properties.getGrpcServicePort());
-        FakeTradeServer fakeTradeServer = new FakeTradeServer(Integer.parseInt(this.properties.getGrpcServicePort()), this.blockChainService);
+        FakeTradeServer fakeTradeServer = new FakeTradeServer(Integer.parseInt(this.properties.getGrpcServicePort()), this.blockChainService, this.simpMessagingTemplate);
         Runnable task = () -> {
             try {
                 fakeTradeServer.Run();
