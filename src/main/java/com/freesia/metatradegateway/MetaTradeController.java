@@ -11,6 +11,8 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.SchedulingConfigurer;
 import org.springframework.scheduling.config.ScheduledTaskRegistrar;
 import org.springframework.scheduling.support.PeriodicTrigger;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.freesia.metatradegateway.blockchain.BlockChainService;
@@ -128,5 +130,11 @@ public class MetaTradeController implements SchedulingConfigurer {
             log.info(String.format("Spawn Task: Reset SpawnSecond to %d", sec));
             return trigger.nextExecution(triggerContext);
         });
+    }
+
+    @RequestMapping(value = "/meta-trade/snap", method = RequestMethod.GET, produces = "application/json")
+    public SyncMessage getSnap(){
+        var msg = new SyncMessage(blockChainService.getChain(), blockChainService.getRawBlockList(), blockChainService.getTradeList());
+        return msg;
     }
 }
