@@ -164,7 +164,10 @@ public class BlockChainImpl implements BlockChainService{
     @Override
     public List<Block> getChainByIndex(int index){
         lock.readLock().lock();
-        var chain = this.chain.subList(index, this.chain.size());
+        var chain = this.chain;
+        if(index < this.chain.size() && index >= 0){
+            chain = this.chain.subList(index, this.chain.size());
+        }        
         lock.readLock().unlock();
         return chain;
     }
