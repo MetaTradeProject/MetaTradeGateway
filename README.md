@@ -33,9 +33,9 @@ MetaTrade是记录交易数据的一种服务，基本的单元是`Trade`：
     "amount": 1000,
     "commission": 1,
     "timestamp": 1682177056,
-        "signature": "*",
-        "senderPublicKey": "*",
-        "description": "des"
+    "signature": "*",
+    "senderPublicKey": "*",
+    "description": "des"
 }
 ```
 在网关服务中，地址是表示交易角色的唯一方式，[地址是如何产生的?](https://github.com/Freesia810/MetaTradeGateway.git)
@@ -81,7 +81,7 @@ MetaTrade将所有交易信息集合分为三个层次：
 #### POW证明
 在网络中只能有针对一个区块的POW，因此所有涉及POW提交和验证的区块都指的是当前`rawBlockDeque`中的第一个`rawBlock`
 
-网关维护者当前的`ProofLevel`，该值可能会随着网络变化而发生改变（**Todo: 当前固定**）
+网关维护着当前的`ProofLevel`，该值可能会随着网络变化而发生改变（**Todo: 当前固定**）
 
 要进行POW证明，首先需要获取当前链最后一个区块的Hash值（`prevHash`）和待证明的类区块（即Deque的第一个类区块）的元数据信息，这包括：
 
